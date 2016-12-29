@@ -1,0 +1,9 @@
+﻿@{
+    Layout = "";
+}
+<h2>InputForm</h2>
+<form>
+    <input type="text" ng-model="controller.translationInput" />
+    <button ng-click=controller.translateInput()>Translate</button>
+    <p>{{controller.translationInput}}</p>
+</form>

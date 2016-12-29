@@ -1,0 +1,22 @@
+﻿<body ng-app="clientApp" ng-controller="translationController">
+    <div class="container">
+        <div class="row">
+            <form>
+                <div class="form-group">
+                    <input class="form-control" type="text" ng-model="translationInput" />
+                </div>
+                <button class="form-control" ng-click="translateInput()">Translate</button>
+            </form>
+        </div>
+        <div class="row" ng-show="hasErrors">
+            <div class="alert alert-danger" role="alert">{{error}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 col-sm-1" ng-repeat="object in translationObjects">
+                <p style="font-weight: bold">{{object.Item}}</p>
+                <p>{{object.Romanization}}</p>
+                <p>{{object.Translation}}</p>
+            </div>
+        </div>
+    </div>
+</body>

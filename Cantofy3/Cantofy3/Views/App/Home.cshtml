@@ -1,0 +1,53 @@
+﻿<div class="jumbotron" ng-hide="highlighted == ''">
+    <h3 style="font-weight: bolder; text-align:center;">{{highlighted.item}}</h3>
+    <h4 style="text-align:center;">{{highlighted.romanization}}</h4>
+    <h4 style="text-align:center;">{{highlighted.translation}}</h4>
+    <p></p>
+</div>
+<div class="jumbotron" ng-hide="highlighted != ''">
+    <h4>Top 3 searched words</h4>
+    <table class="table table-responsive"  ng-hide="topThree.length < 1">
+        <tr ng-repeat="item in topThree">
+            <td style="font-weight:bolder">
+                {{item.item}}
+            </td>
+            <td>
+                {{item.romanization || 'Not found'}}
+            </td>
+            <td>
+                {{item.translation || 'Not found'}}
+            </td>
+        </tr>
+    </table>
+    <p ng-hide="topThree.length > 1" style="font-size:small">No data on searches available.</p>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="input-group">
+            <input ng-model="userInput" type="text" class="form-control" placeholder="Search for...">
+            <span class="input-group-btn">
+                <button class="btn btn-default" ng-click="translate()" type="button">Find</button>
+            </span>
+        </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+<div class="row">
+    <p></p>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <table class="table table-responsive">
+            <tr ng-repeat="item in translation" ng-click="highlight(item)" style="cursor:pointer;">
+                <td style="font-weight:bolder">
+                    {{item.item}}
+                </td>
+                <td>
+                    {{item.romanization || 'Not found'}}
+                </td>
+                <td>
+                    {{item.translation || 'Not found'}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
