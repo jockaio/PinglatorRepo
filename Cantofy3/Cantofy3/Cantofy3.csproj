@@ -225,12 +225,14 @@
     <Content Include="Assets\bootstrap\js\bootstrap.js" />
     <Content Include="Assets\bootstrap\js\bootstrap.min.js" />
     <Content Include="Assets\jquery\jquery.min.js" />
+    <Content Include="Assets\misc\loading-bar.js" />
     <Content Include="Assets\misc\modernizr.min.js" />
     <Content Include="Assets\misc\respond.min.js" />
     <Content Include="Assets\ng\angular-cookies.min.js" />
     <Content Include="Assets\ng\angular-resource.min.js" />
     <Content Include="Assets\ng\angular-route.min.js" />
     <Content Include="Assets\ng\angular.min.js" />
+    <Content Include="Assets\styles\loading-bar.css" />
     <Content Include="Assets\styles\styles.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

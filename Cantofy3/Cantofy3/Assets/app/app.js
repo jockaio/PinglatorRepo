@@ -4,7 +4,8 @@
     'home',
     'signIn',
     'register',
-    'translation'
+    'translation',
+    'angular-loading-bar'
 ]);
 
 
