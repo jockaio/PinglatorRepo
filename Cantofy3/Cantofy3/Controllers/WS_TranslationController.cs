@@ -114,37 +114,5 @@ namespace Cantofy3.Controllers
 
             return Ok(translation);
         }
-
-        [HttpGet]
-        [ResponseType(typeof(List<TranslationViewModel>))]
-        public IHttpActionResult GetTopThreeSearches()
-        {
-            var userId = User.Identity.GetUserId();
-
-            List<IGrouping<int, WordSearch>> DbResult;
-
-
-            DbResult = db.WordSearches.Where(ws => ws.UserId == userId).GroupBy(x => x.WordId).ToList();
-
-            DbResult = DbResult.OrderByDescending(x => x.Count()).Take(3).ToList();
-
-            List<TranslationViewModel> result = new List<TranslationViewModel>();
-
-            foreach (var item in DbResult)
-            {
-                result.Add(
-                    new TranslationViewModel
-                    {
-                        Item = item.First().Word.Item,
-                        Romanization = item.First().Word.Romanization,
-                        Translation = item.First().Word.Translation
-                    });
-            }
-
-            return Ok(result);
-
-            
-            
-        }
     }
 }

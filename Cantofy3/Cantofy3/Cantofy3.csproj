@@ -184,6 +184,7 @@
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\WS_AccountController.cs" />
+    <Compile Include="Controllers\WS_HistoryController.cs" />
     <Compile Include="Controllers\WS_TodoController.cs" />
     <Compile Include="Controllers\WS_TranslationController.cs" />
     <Compile Include="Global.asax.cs">
@@ -201,6 +202,7 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DataModels.cs" />
+    <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Models\TodoItemViewModel.cs" />
     <Compile Include="Controllers\Utility\ModelErrorChecker.cs" />
     <Compile Include="Models\TranslationViewModel.cs" />
@@ -212,6 +214,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\app\app.js" />
+    <Content Include="Assets\app\controllers\historyCtrl.js" />
     <Content Include="Assets\app\controllers\homeCtrl.js" />
     <Content Include="Assets\app\controllers\registerCtrl.js" />
     <Content Include="Assets\app\controllers\signInCtrl.js" />
@@ -280,6 +283,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\cantofy - Web Deploy.pubxml" />
+    <Content Include="Views\App\History.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

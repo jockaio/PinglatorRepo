@@ -14,7 +14,7 @@
         }
 
         $scope.getTopThreeSearches = function () {
-            $http.get('api/WS_Translation/GetTopThreeSearches')
+            $http.get('api/WS_History/GetTopThreeSearchedWords')
                   .success(function (data, status, headers, config) {
                       console.log(data);
                       $scope.topThree = data;

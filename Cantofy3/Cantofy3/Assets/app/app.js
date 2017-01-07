@@ -5,6 +5,7 @@
     'signIn',
     'register',
     'translation',
+    'history',
     'angular-loading-bar'
 ]);
 
@@ -51,6 +52,10 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
     $routeProvider.when('/signin/:message?', {
         templateUrl: 'App/SignIn',
         controller: 'signInCtrl'
+    });
+    $routeProvider.when('/history', {
+        templateUrl: 'App/History',
+        controller: 'historyCtrl'
     });
 
     $routeProvider.otherwise({
