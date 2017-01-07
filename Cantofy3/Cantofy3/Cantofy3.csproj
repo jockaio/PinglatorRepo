@@ -189,6 +189,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\SequenceHelper.cs" />
     <Compile Include="Migrations\201612231326311_init.cs" />
     <Compile Include="Migrations\201612231326311_init.Designer.cs">
       <DependentUpon>201612231326311_init.cs</DependentUpon>
@@ -196,6 +197,10 @@
     <Compile Include="Migrations\201612232138070_addWord.cs" />
     <Compile Include="Migrations\201612232138070_addWord.Designer.cs">
       <DependentUpon>201612232138070_addWord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701061655205_wordWordSearch.cs" />
+    <Compile Include="Migrations\201701061655205_wordWordSearch.Designer.cs">
+      <DependentUpon>201701061655205_wordWordSearch.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -236,6 +241,7 @@
     <Content Include="Assets\styles\styles.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Helpers\WordSearch.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -276,6 +282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612232138070_addWord.resx">
       <DependentUpon>201612232138070_addWord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701061655205_wordWordSearch.resx">
+      <DependentUpon>201701061655205_wordWordSearch.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

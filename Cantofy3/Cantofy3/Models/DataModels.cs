@@ -31,11 +31,15 @@ namespace Cantofy3.Models
         public string Item { get; set; }
         public string Romanization { get; set; }
         public string Translation { get; set; }
+        public DateTime CreatedTime { get; set; }
+        public DateTime UpdateTime { get; set; }
+        public string UpdatedBy { get; set; }
     }
 
     public class WordSearch
     {
         public int ID { get; set; }
+        public int SearchID { get; set; }
         public int WordId { get; set; }
         public virtual Word Word { get; set; }
         public DateTime Date { get; set; }

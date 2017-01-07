@@ -1,4 +1,5 @@
-﻿using Cantofy3.Models;
+﻿using Cantofy3.Helpers;
+using Cantofy3.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -85,6 +86,8 @@ namespace Cantofy3.Controllers
 
             List<TranslationViewModel> translation = new List<TranslationViewModel>();
             var userId = User.Identity.GetUserId();
+            int searchID = SequenceHelper.GetSequenceNumber();
+
             foreach (var word in result)
             {
                 if (word.ID != 0)
@@ -95,7 +98,8 @@ namespace Cantofy3.Controllers
                         {
                             WordId = word.ID,
                             UserId = userId,
-                            Date = DateTime.Now
+                            Date = DateTime.Now,
+                            SearchID = searchID,
                         }
                         );
                 }
