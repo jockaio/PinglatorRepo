@@ -37,86 +37,115 @@ namespace Cantofy3.Controllers
 
         [HttpPost]
         [ResponseType(typeof(List<TranslationViewModel>))]
-        public IHttpActionResult GetTranslation(string userInput)
+        public IHttpActionResult GetTranslation(string userInput, int searchID)
         {
-            List<Word> result = new List<Word>();
-            string currentString;
-            int iterator;
-            bool isLast = false;
-
-            for (int i = 0; i < userInput.Length; i++)
+            if (searchID != 0)
             {
-                currentString = string.Concat(userInput[i]);
-                iterator = i;
-
-                IQueryable<Word> dbResult = db.Words.Where(x => x.Item.Contains(currentString));
-
-                while (dbResult.Any(x => x.Item.Contains(currentString)))
-                {
-                    if (++iterator >= userInput.Length)
-                    {
-                        isLast = true;
-                        break;
-                    }
-                    currentString = string.Concat(currentString, userInput[iterator]);
-                }
-
-                currentString = currentString.Length > 1 && !isLast ? currentString.Substring(0, currentString.Length - 1) : currentString;
-
-                while (!dbResult.Any(x => x.Item.Equals(currentString)) && currentString.Length > 1)
-                {
-                    currentString = currentString.Substring(0, currentString.Length - 1);
-                }
-
-                if (dbResult.Any(x => x.Item.Equals(currentString)))
-                {
-                    result.Add(dbResult.Where(x => x.Item.Equals(currentString)).First());
-                }
-                else
-                {
-                    result.Add(
-                        new Word
-                        {
-                            Item = currentString.Length > 1 ? currentString.Substring(0, currentString.Length - 1) : currentString
-                        }
-                        );
-                }
-                i += currentString.Length - 1;
+                return Ok(GetHistoricalTranslation(searchID));
             }
-
-            List<TranslationViewModel> translation = new List<TranslationViewModel>();
-            var userId = User.Identity.GetUserId();
-            int searchID = SequenceHelper.GetSequenceNumber();
-
-            foreach (var word in result)
+            else
             {
-                if (word.ID != 0)
+                List<Word> result = new List<Word>();
+                string currentString;
+                int iterator;
+                bool isLast = false;
+
+                for (int i = 0; i < userInput.Length; i++)
                 {
-                    //Save search stats.
-                    db.WordSearches.Add(
-                        new WordSearch
+                    currentString = string.Concat(userInput[i]);
+                    iterator = i;
+
+                    IQueryable<Word> dbResult = db.Words.Where(x => x.Item.Contains(currentString));
+
+                    while (dbResult.Any(x => x.Item.Contains(currentString)))
+                    {
+                        if (++iterator >= userInput.Length)
                         {
-                            WordId = word.ID,
-                            UserId = userId,
-                            Date = DateTime.Now,
-                            SearchID = searchID,
+                            isLast = true;
+                            break;
                         }
-                        );
+                        currentString = string.Concat(currentString, userInput[iterator]);
+                    }
+
+                    currentString = currentString.Length > 1 && !isLast ? currentString.Substring(0, currentString.Length - 1) : currentString;
+
+                    while (!dbResult.Any(x => x.Item.Equals(currentString)) && currentString.Length > 1)
+                    {
+                        currentString = currentString.Substring(0, currentString.Length - 1);
+                    }
+
+                    if (dbResult.Any(x => x.Item.Equals(currentString)))
+                    {
+                        result.Add(dbResult.Where(x => x.Item.Equals(currentString)).First());
+                    }
+                    else
+                    {
+                        result.Add(
+                            new Word
+                            {
+                                Item = currentString.Length > 1 ? currentString.Substring(0, currentString.Length - 1) : currentString
+                            }
+                            );
+                    }
+                    i += currentString.Length - 1;
                 }
 
-                //Add translation
-                translation.Add(
+                List<TranslationViewModel> translation = new List<TranslationViewModel>();
+                var userId = User.Identity.GetUserId();
+                searchID = SequenceHelper.GetSequenceNumber();
+
+                foreach (var word in result)
+                {
+                    if (word.ID != 0)
+                    {
+                        //Save search stats.
+                        db.WordSearches.Add(
+                            new WordSearch
+                            {
+                                WordId = word.ID,
+                                UserId = userId,
+                                Date = DateTime.Now,
+                                SearchID = searchID,
+                            }
+                            );
+                    }
+
+                    //Add translation
+                    translation.Add(
+                        new TranslationViewModel
+                        {
+                            Item = word.Item,
+                            Romanization = word.Romanization,
+                            Translation = word.Translation
+                        });
+                }
+
+                db.SaveChanges();
+
+                return Ok(translation);
+            }
+        }
+
+        private List<TranslationViewModel> GetHistoricalTranslation(int searchID)
+        {
+            var userId = User.Identity.GetUserId();
+
+            List<WordSearch> DbResult = db.WordSearches.Where(ws => ws.UserId == userId && ws.SearchID == searchID).ToList();
+
+            List<TranslationViewModel> result = new List<TranslationViewModel>();
+
+            foreach (var item in DbResult)
+            {
+                result.Add(
                     new TranslationViewModel
                     {
-                        Item = word.Item,
-                        Romanization = word.Romanization,
-                        Translation = word.Translation
+                        Item = item.Word.Item,
+                        Romanization = item.Word.Romanization,
+                        Translation = item.Word.Translation
                     });
             }
 
-            db.SaveChanges();
-
-            return Ok(translation);
+            return result;
         }
     }
 }

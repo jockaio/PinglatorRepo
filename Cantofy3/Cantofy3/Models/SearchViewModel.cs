@@ -11,5 +11,6 @@ namespace Cantofy3.Models
         public string Items { get; set; }
         public string Romanization { get; set; }
         public string Translation { get; set; }
+        public DateTime Date { get; set; }
     }
 }

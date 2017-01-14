@@ -36,8 +36,34 @@ namespace Cantofy3.Controllers
         public IHttpActionResult GetLatestSearches()
         {
             var userId = User.Identity.GetUserId();
-            var WordSearches = db.WordSearches.Where(ws => ws.UserId == userId).GroupBy(g => g.)
-            var Searches = db.Words.Where(w => w.ID)
+            var WordSearches = db.WordSearches.Where(ws => ws.UserId == userId && ws.SearchID != 0).GroupBy(g => g.SearchID).ToList();
+            var result = new List<SearchViewModel>();
+
+            foreach (var search in WordSearches)
+            {
+                var sortedSearch = search.OrderBy(o => o.ID);
+                var SearchView = new SearchViewModel();
+
+                SearchView.SearchID = search.Key;
+
+                foreach (var word in sortedSearch)
+                {
+                    SearchView.Items += word.Word.Item;
+                    SearchView.Romanization += word.Word.Romanization + " ";
+                    SearchView.Translation += word.Word.Translation + " - ";
+
+                    if (SearchView.Date == DateTime.MinValue)
+                    {
+                        SearchView.Date = word.Date;
+                    }
+                }
+
+                result.Add(SearchView);
+            }
+
+            result = result.OrderByDescending(o => o.Date).ToList();
+
+            return Ok(result);
         }
 
         [HttpGet]

@@ -23,6 +23,10 @@ namespace Cantofy3.Controllers
         {
             return PartialView();
         }
+        public ActionResult History()
+        {
+            return PartialView();
+        }
 
         [Authorize]
         public ActionResult TodoManager()

@@ -41,7 +41,7 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
     //================================================
     // Routes
     //================================================
-    $routeProvider.when('/home', {
+    $routeProvider.when('/home/:searchID?', {
         templateUrl: 'App/Home',
         controller: 'translationCtrl'
     });
